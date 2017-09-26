@@ -13,9 +13,9 @@ ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-amd64/
 ENV TERM dumb
 
 # Copy source code into image
-ADD . /yodaqa
+#ADD . /yodaqa
 # Alternative: Only take this Dockerfile and obtain Yoda source by cloning the official Git repository
-# RUN git clone https://github.com/brmson/yodaqa.git
+RUN git clone https://github.com/brmson/yodaqa.git
 
 # Define working directory
 WORKDIR /yodaqa

@@ -11,7 +11,8 @@ FROM java:8
 # Could copy fuseki files...
 # ADD ./jena-fuseki-1.1.1 /jena-fuseki
 # ...or get them online (and the newer 1.4.0 should work)
-RUN wget http://www-eu.apache.org/dist/jena/binaries/jena-fuseki1-1.4.0-distribution.tar.gz
+
+RUN wget http://archive.apache.org/dist/jena/binaries/jena-fuseki1-1.4.0-distribution.tar.gz
 RUN mkdir jena-fuseki; tar -xvzf jena-fuseki1-1.4.0-distribution.tar.gz -C jena-fuseki --strip-components=1
 
 # Same as "export TERM=dumb"; prevents error "Could not open terminal for stdout: $TERM not set"

@@ -1,7 +1,7 @@
 #!/bin/bash
 username=$(whoami)
-mkdir /home/$username/docker/data/enwiki
-cd /home/$username/docker/data/enwiki
+mkdir /mnt/parsafiler4/users/dopiro/docker/data/enwiki
+cd /mnt/parsafiler4/users/dopiro/docker/data/enwiki
 
 # Clone extractor repo
 git clone https://github.com/brmson/wikipedia-extractor
@@ -14,6 +14,6 @@ mkdir enwiki-text
 bzcat enwiki*.bz2 | wikipedia-extractor/WikiExtractor.py -o enwiki-text -H -c -x
 
 # Create xml
-bin/extracted2xml.sh enwiki-text.xml
+/mnt/parsafiler1/vol1/users/dopiro/YodaQA/yodaqa/data/enwiki/bin/extracted2xml.sh enwiki-text.xml
 
 cd /

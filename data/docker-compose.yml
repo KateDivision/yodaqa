@@ -3,7 +3,7 @@ dbpedia:
   ports:
    - "3037:3037"
   volumes:
-   - /<path>/data/db/:/jena-fuseki/db/
+   - /mnt/parsafiler4/users/dopiro/docker/data/db/:/jena-fuseki/db/
   command: ./fuseki-server --port 3037 --loc db /dbpedia
 
 enwiki:
@@ -11,7 +11,7 @@ enwiki:
   ports:
    - "8983:8983"
   volumes:
-   - /<path>/data/enwiki/collection1/:/solr/example/enwiki/collection1/
+   - /mnt/parsafiler4/users/dopiro/docker/data/enwiki/collection1/:/solr/example/enwiki/collection1/
   command: java -Dsolr.solr.home=enwiki -jar start.jar
 
 freebase:
@@ -19,7 +19,7 @@ freebase:
   ports:
    - "3030:3030"
   volumes:
-   - /<path>/data/d-freebase/:/jena-fuseki/d-freebase/
+   - /mnt/parsafiler4/users/dopiro/docker/data/d-freebase/:/jena-fuseki/d-freebase/
   command: ./fuseki-server --loc d-freebase /freebase
 
 label1:
@@ -27,7 +27,7 @@ label1:
   ports:
    - "5000:5000"
   volumes:
-   - /<path>/data/labels/:/shared
+   - /mnt/parsafiler4/users/dopiro/docker/data/labels/:/shared
   command: pypy /label-lookup/lookup-service.py /shared/sorted_list.dat
 
 label2:
@@ -35,7 +35,7 @@ label2:
   ports:
    - "5001:5001"
   volumes:
-   - /<path>/data/labels/:/shared
+   - /mnt/parsafiler4/users/dopiro/docker/data/labels/:/shared
   command: pypy /label-lookup/lookup-service-sqlite.py /shared/labels.db
 
 yoda_offline:

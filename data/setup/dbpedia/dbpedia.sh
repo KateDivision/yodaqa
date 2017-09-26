@@ -2,10 +2,10 @@
 
 username=$(whoami)
 # Create directory for the data
-mkdir /home/$username/docker/data/db
-cp setup-jena.sh /home/$username/docker/data/db
-cp fix-nt.sh /home/$username/docker/data/db
-cd /home/$username/docker/data/db
+mkdir /mnt/parsafiler4/users/dopiro/docker/data/db
+cp setup-jena.sh /mnt/parsafiler4/users/dopiro/docker/data/db
+cp fix-nt.sh /mnt/parsafiler4/users/dopiro/docker/data/db
+cd /mnt/parsafiler4/users/dopiro/docker/data/db
 
 # Download files
 wget http://downloads.dbpedia.org/2014/dbpedia_2014.owl.bz2

@@ -2,7 +2,8 @@
 if [ $1 = "sh" ] 
 	then
 	echo "Running shell version..."
-	docker run -it --entrypoint="./gradlew" yodaqa run -q 2>&1 | tee /home/logs/yodaqa-it-`date +%s`.log
+	#docker run -it --entrypoint="./gradlew" yodaqa run -q 2>&1 | tee /home/logs/yodaqa-it-`date +%s`.log
+	docker run -it --entrypoint="./gradlew" yoda_offline run -q 2>&1 | tee /home/logs/yodaqa-it-`date +%s`.log
 elif [ $1 = "bing" ]
 	then
         echo "Running web version with Bing..."

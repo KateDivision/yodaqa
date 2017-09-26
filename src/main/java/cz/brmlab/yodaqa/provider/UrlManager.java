@@ -40,7 +40,7 @@ public class UrlManager {
 		urlLookUpTable = newLookUpTable;
 	}
 
-	private static int currentBackend = 0; //Default is 0: ailao.eu, 1: loopback, different if custom tables loaded
+	private static int currentBackend = 1; //Default is 0: ailao.eu, 1: loopback, different if custom tables loaded
 	public static int getCurrentBackend() {
 		return currentBackend;
 	}

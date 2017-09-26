@@ -20,12 +20,14 @@ mainClassName 		= 'cz.brmlab.yodaqa.YodaQA_Interactive'
 
 ext.dkproVersion	= '1.7.0'
 
+applicationDefaultJvmArgs = ["-XX:-UseGCOverheadLimit"]
+
 run {
   standardInput = System.in
   if (project.hasProperty('execArgs'))
     args(execArgs.split(' '))
   minHeapSize = "2048m"
-  maxHeapSize = "3100m"
+  maxHeapSize = "4100m"
   systemProperties = System.getProperties()
 }
 
@@ -85,7 +87,7 @@ task(machine, dependsOn: 'classes', type: JavaExec) {
 task(web, dependsOn: 'classes', type: JavaExec) {
   main = 'cz.brmlab.yodaqa.YodaQA_Web'
   minHeapSize = "2048m"
-  maxHeapSize = "3100m"
+  maxHeapSize = "4100m"
   classpath = sourceSets.main.runtimeClasspath
   systemProperties = System.getProperties()
 }
