@@ -28,3 +28,8 @@ build
 #bing api key
 bingapi.properties
 bingresults.db
+/bin/
+
+#url (local vs node)
+src/main/java/cz/brmlab/yodaqa/provider/UrlManager.java
+conf/backendURLs.json
