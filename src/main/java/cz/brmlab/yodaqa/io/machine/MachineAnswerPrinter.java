@@ -30,6 +30,7 @@ public class MachineAnswerPrinter extends JCasConsumer_ImplBase {
 
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
 		JCas questionView, answerHitlist;
+        System.out.println(jcas);
 		try {
 			questionView = jcas.getView("Question");
 			answerHitlist = jcas.getView("AnswerHitlist");
@@ -37,6 +38,8 @@ public class MachineAnswerPrinter extends JCasConsumer_ImplBase {
 			throw new AnalysisEngineProcessException(e);
 		}
 		QuestionInfo qi = JCasUtil.selectSingle(questionView, QuestionInfo.class);
+        Question q = QuestionDashboard.getInstance().get(qi.getQuestionId());
+        System.out.println("Question :" + q.getText());
 		FSIndex idx = answerHitlist.getJFSIndexRepository().getIndex("SortedAnswers");
 		FSIterator answers = idx.iterator();
 		if (answers.hasNext()) {
@@ -52,7 +55,9 @@ public class MachineAnswerPrinter extends JCasConsumer_ImplBase {
 		} else {
 			System.out.println("No answer found.");
 		}
-		Question q = QuestionDashboard.getInstance().get(qi.getQuestionId());
+		//Question q = QuestionDashboard.getInstance().get(qi.getQuestionId());
+        System.out.println("Question :" + q.getText());
+		System.out.println("Time stamp 0 :" + q.getTimestamp(0));
 		// q.setAnswers(answers); XXX
 		QuestionDashboard.getInstance().finishQuestion(q);
 	}

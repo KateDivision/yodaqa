@@ -13,6 +13,7 @@ import cz.brmlab.yodaqa.analysis.FindReqParse;
 import cz.brmlab.yodaqa.analysis.tycor.LATByWordnet;
 import cz.brmlab.yodaqa.analysis.tycor.LATMatchTyCor;
 import cz.brmlab.yodaqa.analysis.tycor.LATNormalize;
+import cz.brmlab.yodaqa.flow.DashboardTimeHook;
 
 import de.tudarmstadt.ukp.dkpro.core.stanfordnlp.StanfordParser;
 
@@ -45,6 +46,9 @@ public class AnswerAnalysisAE /* XXX: extends AggregateBuilder ? */ {
 		 *   The importance of this concept was realised first in the analytic theory of theta functions, and geometrically in the theory of bitangents
 		 * ...so usually it's a simple term plus possibly some
 		 * adjectives, but can be a complex subsentence system. */
+
+        //Add the timestamp hook
+        //builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 4));
 
 		/* In addition, we already have StanfordParser annotations,
 		 * so tokens, POS, lemmas, constituents and dependencies.
@@ -106,6 +110,9 @@ public class AnswerAnalysisAE /* XXX: extends AggregateBuilder ? */ {
 		builder.add(createPrimitiveDescription(LATMatchTyCor.class));
 		/* Add features accordign to the question class*/
 		builder.add(AnalysisEngineFactory.createEngineDescription(QuestionClassFeatures.class));
+
+        //Add the timestamp hook
+        //builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 5));
 
 
 		/* Some debug dumps of the intermediate CAS. */

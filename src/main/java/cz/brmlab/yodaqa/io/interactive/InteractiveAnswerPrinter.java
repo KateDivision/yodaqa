@@ -80,6 +80,11 @@ public class InteractiveAnswerPrinter extends JCasConsumer_ImplBase {
 			System.out.println("No answer found.");
 		}
 		Question q = QuestionDashboard.getInstance().get(qi.getQuestionId());
+		System.out.println("Question :" + q.getText());
+		for(int i = 0; (i < (q.getTSSize()/2)); i++) {
+            System.out.println("Time stamp " + (2 * i) + " :" + q.getTimestamp(2 * i));
+            System.out.println("Cas count " + (2 * i + 1) + " :" + q.getTimestamp((2 * i + 1)));
+        }
 		// q.setAnswers(answers); XXX
 		QuestionDashboard.getInstance().finishQuestion(q);
 	}

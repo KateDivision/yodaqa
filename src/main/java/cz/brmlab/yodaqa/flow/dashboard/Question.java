@@ -1,5 +1,7 @@
 package cz.brmlab.yodaqa.flow.dashboard;
 
+import java.lang.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +34,8 @@ public class Question {
 	 * time they are modified. */
 	protected int gen_sources = 0;
 	protected int gen_answers = 0;
+	protected int tsSize = 26;
+	protected long[] timestamps = new long[tsSize];
 
 	protected static Gson gson = new Gson();
 
@@ -72,6 +76,30 @@ public class Question {
 		sources.get(sourceID).setState(state);
 		gen_sources++;
 	}
+
+    public synchronized int getTSSize() { return this.tsSize; }
+
+	public synchronized void setTimestamp(int index) throws Exception{
+	    long ts = System.currentTimeMillis();
+	    //System.out.println("TS: " + ts);
+	    if (((2*index + 1) < tsSize) && (index >= 0)) {
+	        //check for multithreaded parts: count will be more then zero
+            if(this.timestamps[(2 * index + 1)] > 0){
+                //even is a start and odd is the end
+                if((index%2) == 0) {
+                    this.timestamps[2 * index] = Math.min(ts, this.timestamps[2 * index]);
+                } else {
+                    this.timestamps[2 * index] = Math.max(ts, this.timestamps[2 * index]);
+                }
+            } else {
+                //First value
+                this.timestamps[2 * index] = ts;
+            }
+            this.timestamps[(2 * index + 1)] = this.timestamps[(2 * index + 1)] + 1;
+        } else throw new Exception("Index out of bounds for timestamp set");
+    }
+
+    public synchronized long getTimestamp(int index){ return this.timestamps[index];}
 
 	/** @return the answer */
 	public synchronized List<QuestionAnswer> getAnswers() { return answers; }

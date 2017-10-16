@@ -15,6 +15,7 @@ import cz.brmlab.yodaqa.analysis.answer.AnswerAnalysisAE;
 import cz.brmlab.yodaqa.analysis.question.QuestionAnalysisAE;
 import cz.brmlab.yodaqa.flow.FixedParallelFlowController;
 import cz.brmlab.yodaqa.flow.asb.ParallelEngineFactory;
+import cz.brmlab.yodaqa.flow.DashboardTimeHook;
 import cz.brmlab.yodaqa.pipeline.solrdoc.SolrDocAnswerProducer;
 import cz.brmlab.yodaqa.pipeline.solrfull.SolrFullAnswerProducer;
 import cz.brmlab.yodaqa.pipeline.structured.DBpediaOntologyAnswerProducer;
@@ -128,14 +129,35 @@ public class YodaQA /* XXX: extends AggregateBuilder ? */ {
 			System.err.println("0");
 			outputsNewCASes = true;
 
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 0));
+
 			AnalysisEngineDescription questionAnalysis = QuestionAnalysisAE.createEngineDescription();
 			builder.add(questionAnalysis);
+
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 1));
+
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 2));
 
 			AnalysisEngineDescription answerProducer = createAnswerProducerDescription();
 			builder.add(answerProducer);
 
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 3));
+
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 4));
+
 			AnalysisEngineDescription answerAnalysis = AnswerAnalysisAE.createEngineDescription();
 			builder.add(answerAnalysis);
+
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 5));
+
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 6));
 
 			AnalysisEngineDescription answerCASMerger = AnalysisEngineFactory.createEngineDescription(
 					AnswerCASMerger.class,
@@ -144,6 +166,9 @@ public class YodaQA /* XXX: extends AggregateBuilder ? */ {
 					AnswerCASMerger.PARAM_PHASE, 0,
 					ParallelEngineFactory.PARAM_NO_MULTIPROCESSING, 1);
 			builder.add(answerCASMerger);
+
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 7));
 
 		/* (Serialization / scoring point #0.) */
 		} else if (loadPhase == 0) {
@@ -160,8 +185,15 @@ public class YodaQA /* XXX: extends AggregateBuilder ? */ {
 			builder.add(answerSerialize);
 		}
 		if (loadPhase <= 0) {
+
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 8));
+
 			AnalysisEngineDescription answerScoring = AnswerScoringAE.createEngineDescription("");
 			builder.add(answerScoring);
+
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 9));
 		}
 		if (answerSaveDo)
 			return outputsNewCASes;
@@ -174,6 +206,9 @@ public class YodaQA /* XXX: extends AggregateBuilder ? */ {
 		if (loadPhase < 1) {
 			System.err.println("1");
 			//outputsNewCASes = true;
+
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 10));
 
 			/* Convert top N AnswerHitlist entries back to separate CASes,
 			 * then back to a hitlist, to get rid of the rest.  This is a bit
@@ -208,6 +243,9 @@ public class YodaQA /* XXX: extends AggregateBuilder ? */ {
 			builder.add(evidenceDiffusion,
 				CAS.NAME_DEFAULT_SOFA, "AnswerHitlist");
 
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 11));
+
 		/* (Serialization / scoring point #1.) */
 		} else if (loadPhase == 1) {
 			System.err.println("l1");
@@ -235,6 +273,9 @@ public class YodaQA /* XXX: extends AggregateBuilder ? */ {
 			System.err.println("2");
 			outputsNewCASes = true;
 
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 12));
+
 			/* Convert top N AnswerHitlist entries back to separate CASes;
 			 * the original hitlist with the rest of questions is also
 			 * still passed through.. */
@@ -252,6 +293,9 @@ public class YodaQA /* XXX: extends AggregateBuilder ? */ {
 					AnswerCASMerger.PARAM_PHASE, 2,
 					ParallelEngineFactory.PARAM_NO_MULTIPROCESSING, 1);
 			builder.add(answerCASMerger);
+
+            //Add the timestamp hook
+            builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 13));
 
 		/* (Serialization / scoring point #2.) */
 		} else if (loadPhase == 2) {
@@ -288,6 +332,9 @@ public class YodaQA /* XXX: extends AggregateBuilder ? */ {
 		 * here, you must also bump the AnswerCASMerger parameter
 		 * PARAM_ISLAST_BARRIER. */
 
+        //Add the timestamp hook
+        //builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 2));
+
 		/* Structured search: */
 		AnalysisEngineDescription dbpOnt = DBpediaOntologyAnswerProducer.createEngineDescription();
 		builder.add(dbpOnt);
@@ -303,6 +350,9 @@ public class YodaQA /* XXX: extends AggregateBuilder ? */ {
 		builder.add(solrFull); /* This one is worth 3 isLasts. */
 		AnalysisEngineDescription solrDoc = SolrDocAnswerProducer.createEngineDescription();
 		builder.add(solrDoc);
+
+        //Add the timestamp hook
+        //builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 3));
 
 		builder.setFlowControllerDescription(
 				FlowControllerFactory.createFlowControllerDescription(

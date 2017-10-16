@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import cz.brmlab.yodaqa.analysis.tycor.LATByWordnet;
 import cz.brmlab.yodaqa.io.debug.DumpConstituents;
 import cz.brmlab.yodaqa.provider.OpenNlpNamedEntities;
+import cz.brmlab.yodaqa.flow.DashboardTimeHook;
 
 /**
  * Annotate the QuestionCAS.
@@ -49,6 +50,9 @@ public class QuestionAnalysisAE /* XXX: extends AggregateBuilder ? */ {
 		 * alternatives for now, but will clean it up later. */
 
 		/* Token features: */
+
+		//Add the timestamp hook
+		//builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 0));
 
 		builder.add(AnalysisEngineFactory.createEngineDescription(OpenNlpSegmenter.class));
 
@@ -137,6 +141,10 @@ public class QuestionAnalysisAE /* XXX: extends AggregateBuilder ? */ {
 		builder.add(AnalysisEngineFactory.createEngineDescription(DashboardHook.class));
 		/* Classify question into classes*/
 		builder.add(AnalysisEngineFactory.createEngineDescription(ClassClassifier.class));
+
+        //Add the timestamp hook
+        //builder.add(AnalysisEngineFactory.createEngineDescription(DashboardTimeHook.class, DashboardTimeHook.INDEX, 1));
+
 		/* Some debug dumps of the intermediate CAS. */
 		if (logger.isDebugEnabled()) {
 			builder.add(AnalysisEngineFactory.createEngineDescription(DumpConstituents.class));
